@@ -60,8 +60,8 @@ Subtree path patterns are matched (and the corresponding handler called) wheneve
 
 ### Restricting subtree paths:
 To prevent subtree path patterns from acting like they have a wildcard at the end, you can append the special character sequence {$} 
-to the end of the pattern — like ```"/{$}"``` or ```"/static/{$}"```.
-``` mux.HandleFunc("/{$}", home) // Restrict this route to exact matches on / only.```
+to the end of the pattern — like ```"/{$}"``` or ```"/static/{$}"```.<br>
+``` mux.HandleFunc("/{$}", home) // Restrict this route to exact matches on / only.```<br>
 It’s only permitted to use {$} at the end of subtree path patterns (i.e. patterns that end with a trailing slash). 
 
 ## 2.4: Wildcard route patterns
