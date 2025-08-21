@@ -65,7 +65,7 @@ to the end of the pattern — like ```"/{$}"``` or ```"/static/{$}"```.<br>
 It’s only permitted to use {$} at the end of subtree path patterns (i.e. patterns that end with a trailing slash). 
 
 ## 2.4: Wildcard route patterns
-Wildcard segments in a route pattern are denoted by an wildcard identifier inside {} brackets. Like this:<br>
+Wildcard segments in a route pattern are denoted by an wildcard identifier inside { } brackets. Like this:<br>
 ``` mux.HandleFunc("/products/{category}/item/{itemID}", exampleHandler)``` <br>
  In this example, the route pattern contains two wildcard segments. The first segment has
  the identifier category and the second has the identifier itemID. <br>
@@ -77,7 +77,32 @@ Wildcard segments in a route pattern are denoted by an wildcard identifier insid
 Inside your handler, you can retrieve the corresponding value for a wildcard segment using
 its identifier and the ```r.PathValue()``` method. The ```r.PathValue()``` method always returns a string value.
 
- 
+## 2.6: Customizing responses
+### HTTP status codes:
+- It’s only possible to call ```w.WriteHeader()``` once per response, and after the status code
+ has been written it can’t be changed. If you try to call ```w.WriteHeader()``` a second time Go
+ will log a warning message.
+- If you don’t call ```w.WriteHeader()``` explicitly, then the first call to ```w.Write()``` will
+ automatically send a ```200``` status code to the user. So, if you want to send a non-200
+ status code, you must call ```w.WriteHeader()``` before any call to ```w.Write()```.
+ ```
+func snippetCreatePost(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(201)
+	w.Write([]byte("Create a new snippet..."))
+}
+```
+
+## 2.7: Project structure and organization
+ - The ${{\color{Orange}\large{\textsf{cmd}}}}\$ directory will contain the application-specific code for the executable
+ applications in the project. For now our project will have just one executable application
+ — the web application — which will live under the cmd/web directory.
+
+ - The ${{\color{Orange}\large{\textsf{internal}}}}\$ directory will contain the ancillary non-application-specific code used in
+ the project. We’ll use it to hold potentially reusable code like validation helpers and the
+ SQL database models for the project.
+ - The ${{\color{Orange}\large{\textsf{ui}}}}\$ directory will contain the user-interface assets used by the web application.
+ Specifically, the ui/html directory will contain HTML templates, and the ui/static
+ directory will contain static files (like CSS and images).
 
 
  
