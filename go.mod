@@ -1,3 +1,3 @@
-module snippetbox.mojammel.net
+module github.com/mhbhuiyan99/snippetbox
 
-go 1.24.3
+go 1.25.0
