@@ -105,4 +105,13 @@ func snippetCreatePost(w http.ResponseWriter, r *http.Request) {
  directory will contain static files (like CSS and images).
 
 
- 
+## 2.9: Serving static files
+###  The http.Fileserver handler
+Go’s ```net/http``` package ships with a built-in ```http.FileServer``` handler which you can use to
+ serve files over HTTP from a specific directory. <br>
+  To create a new ```http.FileServer``` handler, we need to use the ```http.FileServer()``` function, like:<br>
+```
+ fileServer := http.FileServer(http.Dir("./ui/static/"))
+```
+
+  
