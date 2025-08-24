@@ -113,5 +113,20 @@ Go’s ```net/http``` package ships with a built-in ```http.FileServer``` handle
 ```
  fileServer := http.FileServer(http.Dir("./ui/static/"))
 ```
+It sanitizes all request paths by running them through the ```path.Clean()``` function before
+ searching for a file. This removes any . and .. elements from the URL path, which helps
+ to stop directory traversal attacks.
 
-  
+### Serving single files
+Sometimes you might want to serve a single file from within a handler. For this there’s the
+```http.ServeFile()``` function, which you can use like so: <br>
+ ```
+func downloadHandler(w http.ResponseWriter, r *http.Request) {
+ http.ServeFile(w, r, "./ui/static/file.zip")
+}
+```
+**Warning:** ```http.ServeFile()``` does not automatically sanitize the file path. If you’re
+ constructing a file path from untrusted user input, to avoid directory traversal attacks
+ you must sanitize the input with ```filepath.Clean()``` before using it.
+
+
