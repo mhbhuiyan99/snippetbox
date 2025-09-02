@@ -130,3 +130,41 @@ func downloadHandler(w http.ResponseWriter, r *http.Request) {
  you must sanitize the input with ```filepath.Clean()``` before using it.
 
 
+## 2.10: The http.Handler interface
+Read here (at the end): [What Can You Do? Letting Interfaces Ask the Question in Go](https://medium.com/stackademic/what-can-you-do-letting-interfaces-ask-the-question-in-go-dde15ded1350)
+
+###  Chaining handlers
+...the servemux as just being a special kind of handler,
+ which instead of providing a response itself passes the request on to a second handler. <br>
+
+ You can think of a Go web application as a chain of ServeHTTP() methods being called one after
+ another. <br>
+
+ ### Requests are handled concurrently
+ - all incoming HTTP requests are served in their own goroutine.
+
+-------------
+## 3.1: Managing configuration settings
+ In Go, a common and idiomatic way to manage configuration settings is to use command
+line flags when starting an application. For example:<br>
+```$ go run ./cmd/web -addr=":80"```<br>
+
+ The easiest way to accept and parse a command-line flag in your application is with a line
+ of code like this:<br>
+ ```addr := flag.String("addr", ":4000", "HTTP network address")``` <br><br>
+ <img width="1275" height="866" alt="image" src="https://github.com/user-attachments/assets/c487f5bd-3d3a-4c8a-bcd9-518bf56ab47d" />
+
+
+ ${{\color{Yellow}\large{\textsf{
+ Ports 0-1023 are restricted and (typically) can only be used by services which have root privileges.
+  }}}}\$ 
+If you try to use one of these ports you should get a
+bind: permission denied error message on start-up. <br>
+
+## Default values
+ Command-line flags are completely optional. For instance, if you run the application with
+ no -addr flag the server will fall back to listening on address ":4000" (which is the default
+ value we specified).
+ 
+
+
