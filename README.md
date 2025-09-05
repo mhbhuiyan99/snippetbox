@@ -184,4 +184,8 @@ and use it across multiple goroutines and in your HTTP handlers without needing 
  about race conditions
  
 ## 3.4: Centralized error handling
-
+### http.StatusText() function:
+This returns a human-friendly text representation of a given HTTP status code — for
+ example http.StatusText(400) will return the string "Bad Request", and
+ http.StatusText(500) will return the string "Internal Server Error".
+ 
