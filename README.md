@@ -161,10 +161,31 @@ line flags when starting an application. For example:<br>
 If you try to use one of these ports you should get a
 bind: permission denied error message on start-up. <br>
 
-## Default values
+### Default values
  Command-line flags are completely optional. For instance, if you run the application with
  no -addr flag the server will fall back to listening on address ":4000" (which is the default
  value we specified).
+
+## 3.2: Structured logging
+### Creating a structured logger
+ all structured loggers have a structured logging handler
+ associated with them (not to be confused with a HTTP handler), and it’s actually this
+ handler that controls how log entries are formatted and where they are written to. <br>
+
+ The code for creating a logger looks like this:
+ ```
+loggerHandler := slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{...})
+logger := slog.New(loggerHandler)
+```
+
+### Concurrent logging
+Custom loggers created by slog.New() are concurrency-safe. You can share a single logger
+and use it across multiple goroutines and in your HTTP handlers without needing to worry
+ about race conditions
  
-
-
+## 3.4: Centralized error handling
+### http.StatusText() function:
+This returns a human-friendly text representation of a given HTTP status code — for
+ example http.StatusText(400) will return the string "Bad Request", and
+ http.StatusText(500) will return the string "Internal Server Error".
+ 
